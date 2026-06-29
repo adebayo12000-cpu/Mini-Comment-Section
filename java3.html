@@ -1,43 +1,144 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>JS Practice</title>
+  <title>Comment Section</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f8;
+      padding: 2rem;
+    }
+
+    .notification {
+      background: #1D9E75;
+      color: white;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      max-width: 500px;
+    }
+
+    .close {
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .com-sec {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 500px;
+    }
+
+    .collection {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 0.75rem;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #1D9E75;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 15px;
+      color: #1a1a1a;
+    }
+
+    .user-comment {
+      font-size: 14px;
+      color: #444;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      padding-left: 54px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      padding-left: 54px;
+      align-items: center;
+    }
+
+    .Follow {
+      background: #1D9E75;
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .Follow:hover {
+      background: #0F6E56;
+    }
+
+    button.delete {
+      background: transparent;
+      border: 1px solid #ddd;
+      color: #888;
+      padding: 6px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    button.delete:hover {
+      border-color: #e74c3c;
+      color: #e74c3c;
+    }
+
+    .messages {
+      font-size: 12px;
+      color: #1D9E75;
+      font-weight: 500;
+      margin-left: 4px;
+    }
   </style>
-  <body>
-    <li id="list"></li>
-  
+</head>
+<body>
+
   <div class="notification">
-    New message recieved
-    <button class="close">Close Button</button>
+    New message received
+    <button class="close">✕ Close</button>
   </div>
 
-  <div class="com-sec">
+  <div class="com-sec"></div>
 
-  </div>
-
-  </body>
-  </head>
 <script>
-    // let items = ['Buy milk', 'Walk the dog', 'Finish JS course']
-    // let list = document.querySelector('#list')
-
-    // items.forEach(item => {
-    //     let li = document.createElement('li')
-    //     li.innerText = item;
-
-    //     let deleteBtn = document.createElement('button')
-    //     deleteBtn.innerText = 'Delete'
-
-    //     deleteBtn.addEventListener('click', function() {
-    //         li.remove()
-    //     })
-
-    //     li.appendChild(deleteBtn)
-    //     list.appendChild(li)
-    // })
-
   let Notification = document.querySelector('.notification')
   let Close = document.querySelector('.close')
 
@@ -45,52 +146,57 @@
     Notification.remove()
   })
 
-  let Comment_Section= document.querySelector('.com-sec')
+  let Comment_Section = document.querySelector('.com-sec')
 
   post = [
     {name: 'Wisdom Harper', comment: 'This has been great'},
-    {name: 'Jordan Ben', comment: 'Thanks for the post, been insightfull'},
+    {name: 'Jordan Ben', comment: 'Thanks for the post, been insightful'},
     {name: 'Daniel King', comment: 'Appreciate the post, well done...'}
   ]
 
-  post.forEach(user=> {
-    console.log(user)
-  })
+  post.forEach(user => {
+    let collections = document.createElement('div')
+    collections.classList.add('collection')
 
-  post.forEach(user=> {
-    // Comment_Section.innerText = user
-    let collections = document.createElement('div');
-    collections.classList.add('collection');
-    
     let cancelBtn = document.createElement('button')
-    cancelBtn.innerText= 'delete'
+    cancelBtn.innerText = 'Delete'
+
     let message = document.createElement('span')
     message.classList.add('messages')
 
     setTimeout(function() {
-      message.innerText= ''
-    }, 3000);
+      message.innerText = ''
+    }, 3000)
+
+    // get initials for avatar
+    let initials = user.name.split(' ').map(n => n[0]).join('')
 
     collections.innerHTML = `
-            <p>name: ${user.name}</p>
-            <p>comment: ${user.comment}</p>
-            <button class= "Follow" style= "padding: 1rem;">Follow</button>
-        `;
+      <div class="card-header">
+        <div class="avatar">${initials}</div>
+        <div class="user-name">${user.name}</div>
+      </div>
+      <p class="user-comment">${user.comment}</p>
+      <div class="card-actions">
+        <button class="Follow">Follow</button>
+      </div>
+    `
 
     let follow = collections.querySelector('.Follow')
     follow.addEventListener('click', function(){
-      message.innerText= 'followed'
+      message.innerText = 'Following ✓'
     })
+
     cancelBtn.addEventListener('click', function(){
       collections.remove()
     })
 
-    collections.appendChild(cancelBtn)  
-    collections.appendChild(message)
-    Comment_Section.appendChild(collections)  
-  })
+    let actions = collections.querySelector('.card-actions')
+    actions.appendChild(cancelBtn)
+    actions.appendChild(message)
 
-  let Alert= document.createElement('li')
-  Alert.innerText= 'This is an important message'
-  Comment_Section.appendChild(Alert)
+    Comment_Section.appendChild(collections)
+  })
 </script>
+</body>
+</html>
