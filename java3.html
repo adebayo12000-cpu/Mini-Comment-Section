@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JS Practice</title>
+  <style>
+
+  </style>
+  <body>
+    <li id="list"></li>
+  
+  <div class="notification">
+    New message recieved
+    <button class="close">Close Button</button>
+  </div>
+
+  <div class="com-sec">
+
+  </div>
+
+  </body>
+  </head>
+<script>
+    // let items = ['Buy milk', 'Walk the dog', 'Finish JS course']
+    // let list = document.querySelector('#list')
+
+    // items.forEach(item => {
+    //     let li = document.createElement('li')
+    //     li.innerText = item;
+
+    //     let deleteBtn = document.createElement('button')
+    //     deleteBtn.innerText = 'Delete'
+
+    //     deleteBtn.addEventListener('click', function() {
+    //         li.remove()
+    //     })
+
+    //     li.appendChild(deleteBtn)
+    //     list.appendChild(li)
+    // })
+
+  let Notification = document.querySelector('.notification')
+  let Close = document.querySelector('.close')
+
+  Close.addEventListener('click', function(){
+    Notification.remove()
+  })
+
+  let Comment_Section= document.querySelector('.com-sec')
+
+  post = [
+    {name: 'Wisdom Harper', comment: 'This has been great'},
+    {name: 'Jordan Ben', comment: 'Thanks for the post, been insightfull'},
+    {name: 'Daniel King', comment: 'Appreciate the post, well done...'}
+  ]
+
+  post.forEach(user=> {
+    console.log(user)
+  })
+
+  post.forEach(user=> {
+    // Comment_Section.innerText = user
+    let collections = document.createElement('div');
+    collections.classList.add('collection');
+    
+    let cancelBtn = document.createElement('button')
+    cancelBtn.innerText= 'delete'
+    let message = document.createElement('span')
+    message.classList.add('messages')
+
+    setTimeout(function() {
+      message.innerText= ''
+    }, 3000);
+
+    collections.innerHTML = `
+            <p>name: ${user.name}</p>
+            <p>comment: ${user.comment}</p>
+            <button class= "Follow" style= "padding: 1rem;">Follow</button>
+        `;
+
+    let follow = collections.querySelector('.Follow')
+    follow.addEventListener('click', function(){
+      message.innerText= 'followed'
+    })
+    cancelBtn.addEventListener('click', function(){
+      collections.remove()
+    })
+
+    collections.appendChild(cancelBtn)  
+    collections.appendChild(message)
+    Comment_Section.appendChild(collections)  
+  })
+
+  let Alert= document.createElement('li')
+  Alert.innerText= 'This is an important message'
+  Comment_Section.appendChild(Alert)
+</script>
